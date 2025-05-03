@@ -1,13 +1,13 @@
-# Experiment 1: Multi-threaded RMI Client/Server
+# Experiment 1: Multi-threaded RMI Client/Server (Shared List)
 
-Demonstrates array sorting using Java RMI, showcasing the server handling multiple clients concurrently via threads.
+Demonstrates multiple clients using Java RMI to send integers to a server. The server maintains a single, shared list containing all numbers from all clients, returning the combined sorted list after each addition.
 
 ## Files
 
-- `RemoteInterface.java`: Remote service contract.
-- `RemoteImpl.java`: Server-side implementation (sorting logic).
+- `RemoteInterface.java`: Remote service contract (`addNumbersAndSort`).
+- `RemoteImpl.java`: Server-side implementation (manages the shared list).
 - `RMIServer.java`: Starts the server and RMI registry.
-- `RMIClient.java`: Client application to request sorting.
+- `RMIClient.java`: Client application to send numbers.
 
 ## Running the Experiment
 
@@ -25,13 +25,13 @@ Demonstrates array sorting using Java RMI, showcasing the server handling multip
 
     - Open one or more **new terminals**. Navigate to the same project directory.
     - Run: `java RMIClient`
-    - Follow the prompts (enter array size, 0 to exit).
+    - Follow the prompts: Enter how many numbers to send, then enter the numbers themselves (0 count to exit).
 
-4.  **Observe Multi-threading:**
+4.  **Observe Shared State & Multi-threading:**
 
-    - Run multiple clients simultaneously.
-    - Check the **RMIServer terminal output**. Different `Thread: ID` numbers for concurrent requests confirm multi-threading handled by RMI.
+    - As different clients send numbers, notice how the "Server returned combined sorted list" on each client grows, containing numbers submitted by _all_ clients.
+    - Check the **RMIServer terminal output**. Different `Thread: ID` numbers show RMI handling clients concurrently, all accessing the shared list.
 
 5.  **Stop:**
-    - Enter `0` in client terminals to exit.
+    - Enter `0` for the count in client terminals to exit.
     - Press `Ctrl+C` in the RMIServer terminal to stop the server.

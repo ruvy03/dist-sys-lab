@@ -1,42 +1,70 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Arrays;
-import java.util.Random;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class RMIClient {
 
     public static void main(String[] args) {
+        String host = (args.length < 1) ? "localhost" : args[0];
         try {
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            Registry registry = LocateRegistry.getRegistry(host, 1099);
             RemoteInterface remote = (RemoteInterface) registry.lookup("RemoteService");
             Scanner scanner = new Scanner(System.in);
-            Random random = new Random();
+
+            System.out.println("Client connected to RMI server on " + host);
 
             while (true) {
-                System.out.print("Enter array length (or 0 to exit): ");
-                int length = scanner.nextInt();
-                
-                if (length <= 0) {
-                    break;
+                int count = -1;
+                while (count < 0) { // Allow sending 0 numbers to just get the current list
+                    System.out.print("\nHow many numbers to send? (Enter 0 to exit, or >= 1): ");
+                    try {
+                        count = scanner.nextInt();
+                        if (count < 0)
+                            System.out.println("Please enter 0 or a positive number.");
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter an integer.");
+                        scanner.next(); // Consume invalid input
+                    }
                 }
 
-                // Generate random array
-                int[] arr = new int[length];
-                for (int i = 0; i < length; i++) {
-                    arr[i] = random.nextInt(100); // Random numbers between 0 and 99
+                if (count == 0) {
+                    break; // Exit main loop
                 }
-                
-                System.out.println("Original array: " + Arrays.toString(arr));
 
-                // Sort the array using the remote service
-                int[] sortedArr = remote.sortArray(arr);
-                System.out.println("Sorted array: " + Arrays.toString(sortedArr));
-                System.out.println();
-            }
-            
+                // Get numbers from user
+                int[] numbersToSend = new int[count];
+                System.out.println("Enter " + count + " integer(s):");
+                for (int i = 0; i < count; i++) {
+                    while (true) { // Loop until valid integer is entered
+                        System.out.print("Number " + (i + 1) + ": ");
+                        try {
+                            numbersToSend[i] = scanner.nextInt();
+                            break; // Exit inner loop
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Please enter an integer.");
+                            scanner.next(); // Consume invalid input
+                        }
+                    }
+                }
+                scanner.nextLine(); // Consume leftover newline
+
+                System.out.println("Sending numbers: " + Arrays.toString(numbersToSend));
+
+                // --- RMI Call ---
+                int[] combinedSortedList = remote.addNumbersAndSort(numbersToSend);
+                // --- End RMI Call ---
+
+                System.out.println("Server returned combined sorted list: " + Arrays.toString(combinedSortedList));
+
+            } // End of while loop
+
             scanner.close();
+            System.out.println("Client exiting.");
+
         } catch (Exception e) {
+            System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
         }
     }
