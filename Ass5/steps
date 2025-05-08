@@ -1,0 +1,4 @@
+open terminal 
+
+command 1 - javac *.java
+command 2 - java TokenRing

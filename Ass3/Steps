@@ -1,0 +1,19 @@
+Download file mpj-v0_44.tar.gz
+https://sourceforge.net/projects/mpjexpress/files/releases/
+open terminal
+
+command - cd Downloads
+command - tar -xvzf mpj-v0_44.tar.gz
+
+
+extract it on home and rename it as mpj (maually)
+
+open new terminal
+
+command 1 - export MPJ_HOME=~/mpj
+command 2 - export PATH=$PATH:$MPJ_HOME/bin
+command 3 - source ~/.bashrc
+command 4 - javac -cp $MPJ_HOME/lib/mpj.jar ArrSum.java
+command 5 - mpjrun.sh -np 4 ArrSum
+
+

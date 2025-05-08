@@ -1,0 +1,83 @@
+===========================
+SETUP AND RUN INSTRUCTIONS
+===========================
+
+This project demonstrates a Flask-based web service with two registries,
+and a smart client that routes requests dynamically.
+
+-----------
+PREREQUISITES
+-----------
+
+1. Python 3.x installed
+2. pip (Python package manager)
+
+----------
+STEP 1: INSTALL DEPENDENCIES
+----------
+
+Open a terminal and run:
+
+    pip install flask requests
+
+----------
+STEP 2: CREATE PROJECT STRUCTURE
+----------
+
+Create the following files in a single folder:
+
+    ├── server.py
+    ├── registry1.py
+    ├── registry2.py
+    └── client.py
+
+Paste the corresponding code into each file.
+
+----------
+STEP 3: START THE FLASK SERVER
+----------
+
+In Terminal 1, run:
+
+    python server.py
+
+This will start the Flask web service on:
+    http://localhost:5000/
+
+----------
+STEP 4: RUN THE CLIENT
+----------
+
+In Terminal 2, run:
+
+    python client.py
+
+You will be prompted to enter:
+    - An operation (add, subtract, multiply, divide)
+    - Two numbers (a and b)
+
+The client will:
+    - Dynamically select the correct registry
+    - Send a request to the appropriate endpoint
+    - Display the result and registry used
+
+----------
+EXAMPLE RUN
+----------
+
+Enter operation (add, subtract, multiply, divide): divide  
+Enter first number: 12  
+Enter second number: 3  
+
+Expected Output:
+    [Registry2] Resolving 'divide' at: http://localhost:5000/divide  
+    [Registry2] Divide Result: 4.0
+
+----------
+NOTES
+----------
+
+- Registry1 handles: add, subtract
+- Registry2 handles: multiply, divide
+- The service is modular — you can expand registries or services easily.
+

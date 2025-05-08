@@ -1,0 +1,15 @@
+open terminal 1
+
+command - javac *.java
+
+
+open terminal 2 
+
+command - java Bully
+
+
+open terminal 3
+
+command - java Ring
+
+

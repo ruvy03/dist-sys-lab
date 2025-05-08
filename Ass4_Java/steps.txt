@@ -1,0 +1,17 @@
+terminal 1
+
+javac *.java
+rmiregistry &
+            & makes it run in the background
+
+java MasterNode 500
+                parameter is the time for the master clock
+
+terminal 2
+
+java SlaveNode s1 2000
+                name and time
+
+
+terminal 3
+java SlaveNode s2 6000

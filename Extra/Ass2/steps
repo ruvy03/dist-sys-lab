@@ -1,0 +1,45 @@
+DS Assignment 2 Steps
+
+
+
+This project requires JDK 8 to run refer to java_setuo.txt for the same.
+
+
+
+Create a file name calculator.idl,  and write following code in it.
+module calculator_module {
+
+interface Calculator {
+long add(in long a , in long b);
+long subtract(in long a, in long b);
+long multiply(in long a, in long b);
+long divide(in long a, in long b);
+oneway void shutdown(); 
+ };
+};
+
+
+Run the following command to compile the calculator.idl
+idlj -fall calculator.idl
+
+After running the above a command a folder will be created named calculator_module.
+Create two more folders 
+client
+server
+In the server folder create two files
+CalculatorImpl.java
+CalculatorServer.java
+
+In the client folder create a file named CalculatorClient.java
+
+In Main folder -- 
+find . -name "*.java" -print | xargs javac
+
+-Start the orbd server :
+orbd -ORBInitialPort 1050 -ORBInitialHost localhost
+
+-Open another terminal in VS code and start the CalculatorServer:                   
+java server.CalculatorServer -ORBInitialPort 1050 -ORBInitialHost localhost
+
+-Open another terminal in VS code and start the CalculatorClient:                      
+java client.CalculatorClient -ORBInitialPort 1050 -ORBInitialHost localhost

@@ -1,0 +1,7 @@
+on terminal 1 
+python3 server.py
+
+
+on terminal 2
+python3 client.py
+(create multiple clients each on different terminal)

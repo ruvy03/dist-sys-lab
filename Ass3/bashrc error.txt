@@ -1,0 +1,35 @@
+1. Check if the file exists:
+
+ls -la ~
+
+Look for .bashrc in the output. If it's missing, you'll need to create it.
+
+2. Create a new .bashrc file:
+
+If the file is indeed missing, you can create a new one by running:
+
+touch ~/.bashrc
+
+nano ~/.bashrc
+
+
+# ~/.bashrc: executed by bash for non-login shells.
+
+# set a colorful prompt
+PS1='[\u@\h \W]\$ '
+
+# enable color support of ls and add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    eval "$(dircolors)"
+fi
+alias ls='ls --color=auto'
+alias ll='ls -l'
+
+Save and close the file (in nano, press CTRL + X, then Y, then Enter).
+
+
+3. Source the new .bashrc:
+
+After creating or updating the .bashrc file, run the following command again to apply the changes:
+
+source ~/.bashrc

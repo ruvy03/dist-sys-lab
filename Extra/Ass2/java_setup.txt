@@ -1,0 +1,16 @@
+Step1 : Update apt package installer
+
+sudo apt update
+
+
+Step2 : Install
+
+sudo apt install openjdk-8-jdk
+
+
+Step3: switch to use both java and javac for openjdk-8-jdk
+
+sudo update-alternatives --config java
+
+sudo update-alternatives --config javac
+
