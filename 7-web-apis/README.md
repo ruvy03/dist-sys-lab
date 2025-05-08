@@ -1,37 +1,7 @@
+pip install -r requirements.txt
+or
+pip install flask
 
-cg83@cg83:~/Desktop/ds-l/e7$ pip install -r
-ignore tensorflow errors
+python3 app.py
 
-cg83@cg83:~/Desktop/ds-l/e7$ python3 app.py 
-
-
-
-
-new terminal
-
-cg83@cg83:~/Desktop/ds-l/e7$ python3 api.py 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+go to the url mentioned by the python console logs

@@ -1,32 +1,44 @@
+
 from flask import Flask, render_template, request
-import requests
-import json
 
 app = Flask(__name__)
 
+def add(num1, num2):
+    return num1 + num2
+
+def subtract(num1, num2):
+    return num1 - num2
+
+def multiply(num1, num2):
+    return num1 * num2
+
+def divide(num1, num2):
+    if num2 == 0:
+        return "Cannot divide by zero"
+    return num1 / num2
+
 @app.route("/")
 def home():
-  return render_template("index.html")
+    return render_template("index.html")
 
 @app.route("/calculate", methods=["POST"])
 def calculate():
-    num1 = int(request.form["num1"])
-    num2 = int(request.form["num2"])
+    num1 = float(request.form["num1"])
+    num2 = float(request.form["num2"])
     operation = request.form["operation"]
-    payload = {"num1": num1, "num2": num2}
+    
     if operation == "add":
-        url = "http://localhost:5000/add"
+        result = add(num1, num2)
     elif operation == "subtract":
-        url = "http://localhost:5000/subtract"
+        result = subtract(num1, num2)
     elif operation == "multiply":
-        url = "http://localhost:5000/multiply"
+        result = multiply(num1, num2)
     elif operation == "divide":
-        url = "http://localhost:5000/divide"
+        result = divide(num1, num2)
     else:
-        return "Invalid operation"
-    response = requests.post(url, json=payload)
-    result = json.loads(response.text)
+        result = "Invalid operation"
+    
     return render_template("result.html", result=result)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=3000)
+    app.run(debug=True, port=5000)
